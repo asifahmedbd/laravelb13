@@ -8,11 +8,12 @@ use App\Models\User;
 
 class AdminDashboardController extends Controller
 {
+    
     public function index(){
 
         $id = Auth::user()->id;
         $admin_info = User::find($id);
-
+        session(['admin_info' => $admin_info]);
         return view('admin.dashboard', compact('admin_info'));
     }
 
