@@ -35,20 +35,36 @@
               </div>
             </div>
             <div class="card-body">
+            <form role="form" action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
+	            	@csrf
               <div class="form-group">
                 <label for="inputName">Category Name</label>
-                <input type="text" id="inputName" class="form-control">
+                <input type="text" id="inputName" class="form-control" name="category_name">
               </div>
               <div class="form-group">
                 <label for="inputStatus">Category Level</label>
                 <select name="parent_id" class = "form-control" required>
                     <option value="">Select</option>
                     <option value="0"> Main Category </option>
+                    @foreach($all_categories as $row)
+                        <option value="{{ $row->category_row_id}}">
+                        <!-- @if($row->level == 0) <b>  @endif -->  
+                        @if($row->level == 0) <b>  @endif 
+                        @if($row->level == 1) &nbsp; - @endif   
+                        @if($row->level == 2) &nbsp; &nbsp; - - @endif     
+                        @if($row->level == 3) &nbsp; &nbsp; &nbsp; - - - @endif       
+                        @if($row->level == 4) &nbsp; &nbsp; &nbsp; &nbsp; - - - - @endif       
+                        @if($row->level == 5) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  - - - - - @endif       
+                        @if($row->level > 5)  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - - - @endif
+                        {{ $row->category_name }} 
+                        @if($row->level == 0) </b>  @endif  
+                        </option>
+                      @endforeach
                   </select>
               </div>
               <div class="form-group">
                 <label for="inputDescription">Category Description</label>
-                <textarea id="inputDescription" class="form-control" rows="4"></textarea>
+                <textarea id="inputDescription" class="form-control" rows="4" name="category_description"></textarea>
               </div>
               
               <div class="form-group">
@@ -65,16 +81,16 @@
               </div>
 
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="is_featured">
                 <label class="form-check-label" for="exampleCheck1">Featured Category</label>
               </div>
-
             </div>
             <!-- /.card-body -->
             <div class="col-12" style="margin: 10px">
 		          <a href="#" class="btn btn-secondary">Cancel</a>
-		          <input type="submit" value="Create new Project" class="btn btn-success float-right">
+		          <input type="submit" value="Create new category" class="btn btn-success float-right">
 		        </div>
+          </form>
           </div>
           <!-- /.card -->
         </div>
