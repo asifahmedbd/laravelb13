@@ -21,9 +21,10 @@ class CategoryController extends Controller
         $id = Auth::user()->id;
         $admin_info = User::find($id);
         //$data = array();
-        $data = Category::all();
-        dd($data);
-        return view('admin.category.index', compact('data', 'admin_info'));
+		$common_model = new Common();      
+        $all_categories = $common_model->allCategories();
+        //dd($data);
+        return view('admin.category.index', compact('all_categories', 'admin_info'));
     }
 
     /**
