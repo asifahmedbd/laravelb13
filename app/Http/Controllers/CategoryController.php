@@ -82,8 +82,15 @@ class CategoryController extends Controller
             }
         }
 
-        Alert::success('Category Created Successfully!', 'success');    
-        return redirect()->route('category.create');
+        $details = [
+            'title' => 'Category Management',
+            'body' => 'A new category "'.$request->category_name.'" has been created'
+        ];
+
+        \Mail::to('romeoasif@gmail.com')->send(new \App\Mail\CategoryEmail($details));
+
+        Alert::success('Category Created Successfully!', 'success');
+        return redirect()->route('category.index');
     }
 
     /**
