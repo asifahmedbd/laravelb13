@@ -19,7 +19,7 @@ class AttributesController extends Controller
      */
     public function create()
     {
-        echo 'attributes';
+        return view('admin.attributes.create');
     }
 
     /**
@@ -27,7 +27,7 @@ class AttributesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
