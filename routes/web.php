@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,7 +34,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'checkrole:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/logout', [AdminDashboardController::class, 'adminlogout'])->name('admin.logout');
-    Route::resource('category', CategoryController::class);
+    Route::resource('/admin/category', 'CategoryController');
+    Route::resource('/admin/attributes', 'AttributesController');
 });
 
 
