@@ -43,7 +43,25 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
+        
+        $validated = $request->validate([
+            'category_name' => 'required',
+            'parent_id' => 'required',
+        ]);
+
+        $customMessages = [
+            'category_name.required' => 'Category name is required.',
+            'parent_id.required' => 'Category Level is required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $customMessages);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $category_model = new Category();
         $category_model->category_name = $request->category_name;  
         $category_model->parent_id = $request->parent_id;
