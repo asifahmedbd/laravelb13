@@ -39,7 +39,7 @@
 	            	@csrf
               <div class="form-group">
                 <label for="inputName">Attribute Name</label>
-                <input type="text" id="inputName" class="form-control" name="category_name">
+                <input type="text" id="inputName" class="form-control" name="attribute_name">
               </div>
 
 

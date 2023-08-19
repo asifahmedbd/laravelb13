@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Common;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
 use Image;
 Use Alert;
 use DB;
@@ -49,18 +51,18 @@ class CategoryController extends Controller
             'parent_id' => 'required',
         ]);
 
-        $customMessages = [
-            'category_name.required' => 'Category name is required.',
-            'parent_id.required' => 'Category Level is required',
-        ];
+        // $messages = [
+        //     'category_name.required' => 'Category name is required.',
+        //     'parent_id.required' => 'Category Level is required',
+        // ];
 
-        $validator = Validator::make($request->all(), $rules, $customMessages);
+        // $validator = Validator::make($request->all(), $rules, $messages);
 
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
 
         $category_model = new Category();
         $category_model->category_name = $request->category_name;  
@@ -140,6 +142,34 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // main category Cannnot be deleted if it has child
+       $has_child = DB::table('categories')->where('category_row_id', $id)->where('has_child', 1)->first();
+
+       if(isset($has_child)) {           
+        Alert::warning('Delete', 'Please delete child items first');
+        return redirect()->route('category.index');
+        //return false;
+       }
+
+       $parent_id = DB::table('categories')->where('category_row_id', $id)->first()->parent_id;                      
+       DB::table('categories')->where('category_row_id', $id)->delete(); 
+       
+       // if parent exist then update has_child column
+       if($parent_id) {
+        if( !DB::table('categories')->where('parent_id', $parent_id)->count()) {
+           DB::table('categories')
+                ->where('category_row_id', $parent_id)
+                ->update([
+                  'has_child'=> 0
+                ]);
+           }      
+       }  
+       
+       
+       //Session::flash('success-message', 'Successfully Deleted !');        
+       Alert::toast('Category Deleted Successfully!', 'success');
+       return redirect()->route('category.index');
+
+
     }
 }

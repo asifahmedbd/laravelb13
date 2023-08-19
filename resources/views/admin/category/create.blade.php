@@ -35,7 +35,7 @@
               </div>
             </div>
             <div class="card-body">
-              <!-- @if ($errors->any())
+              @if ($errors->any())
                   <div class="alert alert-danger">
                       <ul>
                           @foreach ($errors->all() as $error)
@@ -43,19 +43,23 @@
                           @endforeach
                       </ul>
                   </div>
-              @endif -->
-              @error('category_name')
+              @endif
+
+              <!-- @error('category_name')
                   <div class="alert alert-danger">{{ $message }}</div>
               @enderror
+              @error('parent_id')
+                  <div class="alert alert-danger">{{ $message }}</div>
+              @enderror -->
             <form role="form" action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
 	            	@csrf
               <div class="form-group">
                 <label for="inputName">Category Name</label>
-                <input type="text" id="inputName" class="form-control" name="category_name" >
+                <input type="text" id="inputName" class="form-control" name="category_name" required>
               </div>
               <div class="form-group">
                 <label for="inputStatus">Category Level</label>
-                <select name="parent_id" class = "form-control">
+                <select name="parent_id" class = "form-control" required>
                     <option value="">Select</option>
                     <option value="0"> Main Category </option>
                     @foreach($all_categories as $row)

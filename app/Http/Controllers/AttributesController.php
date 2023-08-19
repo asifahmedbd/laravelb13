@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Attribute;
 
 class AttributesController extends Controller
 {
@@ -11,7 +12,9 @@ class AttributesController extends Controller
      */
     public function index()
     {
-        //
+        $all_attributes = Attribute::all();
+        //dd($all_attributes);
+        return view('admin.attributes.index', compact('all_attributes'));
     }
 
     /**
@@ -27,7 +30,22 @@ class AttributesController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        // dd($request);
+        $validated = $request->validate([
+            'attribute_name' => 'required',
+        ]);
+
+        $admin_info = session("admin_info");
+
+        $attribute_model = new Attribute();
+        $attribute_model->attribute_name = $request->input('attribute_name');
+        $attribute_model->attribute_value = json_encode($request->input('attribute_values'));
+        $attribute_model->created_by = $admin_info['id'];
+
+        $attribute_model->save();
+
+        // Alert::success('Attribute Created Successfully!', 'success');
+        return redirect()->route('attributes.create');
     }
 
     /**
