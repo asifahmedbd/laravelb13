@@ -36,6 +36,7 @@ Route::middleware(['auth', 'checkrole:admin'])->group(function () {
     Route::get('/admin/logout', [AdminDashboardController::class, 'adminlogout'])->name('admin.logout');
     Route::resource('/admin/category', 'CategoryController');
     Route::resource('/admin/attributes', 'AttributesController');
+    Route::resource('/admin/products', 'ProductController');
 });
 
 
