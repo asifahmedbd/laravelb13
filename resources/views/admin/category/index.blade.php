@@ -57,15 +57,13 @@
 		                         @if($row->level == 4) &nbsp; &nbsp; &nbsp; &nbsp; - - - - @endif       
 		                         @if($row->level == 5) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  - - - - - @endif       
 		                         @if($row->level > 5)  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - - - @endif
-		                         
-		                         {{ $row->category_name }} 
-		                         @if($row->level == 0) </b>  @endif 
+		                         {{ $row->category_name }}
 		                         </td> 
 		                        <td align="center">
 		                        	@if($row->category_image != null)
 		                        	<img src="{{ asset('uploads/category/thumbnail').'/'.$row->category_image }}" alt="" width="80px">
 		                        	@else
-		                        	<img src="{{ asset('uploads/category/no_category.png') }}" alt="" width="50px" height="50px">
+		                        	<img src="{{ asset('images/no_category.png') }}" alt="" width="50px" height="50px">
 		                        	@endif
 		                        </td>
 		                        <td>
