@@ -3,11 +3,6 @@
 @section('content')
 <!-- summernote -->
 <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
-<!-- CodeMirror -->
-<link rel="stylesheet" href="{{ asset('plugins/codemirror/codemirror.css') }}">
-<link rel="stylesheet" href="{{ asset('plugins/codemirror/theme/monokai.css') }}">
-<!-- SimpleMDE -->
-<link rel="stylesheet" href="{{ asset('plugins/simplemde/simplemde.min.css') }}">
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -111,6 +106,11 @@
                     </select>
                   </div>
 
+                  <div class="form-group">
+                    <label for="productName">Tags</label>
+                    <input type="text" class="form-control" id="productName" placeholder="Enter tags" name="product_tags">
+                  </div>
+
                 </div>
               <!-- /.card -->
               </div>
@@ -147,6 +147,7 @@
                   </div>
                 </div>
                 <div class="card-body">
+                  <input class="inventory_on_off" type="checkbox" name="my-checkbox" data-bootstrap-switch data-off-color="danger" data-on-color="success">
                 </div>
               <!-- /.card -->
               </div>
@@ -195,22 +196,26 @@
 
   <!-- Summernote -->
   <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
-  <!-- CodeMirror -->
-  <script src="{{ asset('plugins/codemirror/codemirror.js') }}"></script>
-  <script src="{{ asset('plugins/codemirror/mode/css/css.js') }}"></script>
-  <script src="{{ asset('plugins/codemirror/mode/xml/xml.js') }}"></script>
-  <script src="{{ asset('plugins/codemirror/mode/htmlmixed/htmlmixed.js') }}"></script>
+  <!-- Bootstrap Switch -->
+  <script src="{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
   <script type="text/javascript">
+
     $(document).ready(function(){
       // Summernote
-      $('#summernote').summernote()
-
-      // CodeMirror
-      CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-        mode: "htmlmixed",
-        theme: "monokai"
-      });
+      $('#summernote').summernote();
       $('.alert-danger').delay(3000).fadeOut('slow');
+      $("input[data-bootstrap-switch]").each(function(){
+        $(this).bootstrapSwitch('state', $(this).prop('checked'));
+      });
+
+      $('body').on('switchChange.bootstrapSwitch','.inventory_on_off',function () {
+         if($(this).is(':checked')){
+            //console.log('on');
+          } else {
+            //console.log('off');
+          }
+      });
+
     });
   </script>
 @endsection
