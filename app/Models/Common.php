@@ -176,6 +176,10 @@ class Common extends Model
         }
         return $filter_category;
     }
+
+    public function allAttributes(){
+        return $result =  Attribute::all();
+    }
     
    
    

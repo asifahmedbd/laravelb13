@@ -1,0 +1,31 @@
+.atr-wrapper{
+  border-radius: 5px; border: 1px solid #ddd; background: #f7f7f5;  
+}
+
+.atr-wrapper .single-atr {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    margin-left: 10px;
+}
+
+.atr-wrapper .single-atr .atr-title, .atr-wrapper .single-atr .icheck-primary {
+    width: 120px;
+    max-width: 120px;
+}
+
+.atr-wrapper .single-atr .icheck-primary .main_label{
+  font-weight: bold;
+  color: #000;
+}
+
+.atr-wrapper .single-atr .icheck-primary label span{
+  color: #c76e6e;
+}
+
+.atr-wrapper .single-atr label.cb span {
+    line-height: 20px;
+    margin-left: 30px;
+    color: #000;
+}

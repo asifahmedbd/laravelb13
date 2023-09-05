@@ -3,6 +3,8 @@
 @section('content')
 <!-- summernote -->
 <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+  <!-- iCheck for checkboxes and radio inputs -->
+<link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -148,6 +150,29 @@
                 </div>
                 <div class="card-body">
                   <input class="inventory_on_off" type="checkbox" name="my-checkbox" data-bootstrap-switch data-off-color="danger" data-on-color="success">
+
+                  <div class="atr-wrapper" style="display: none; margin-top: 10px;">
+                      @foreach($all_attributes as $adata)
+                        @php
+                          $aid = $adata->attribute_row_id; 
+                          $atr_value = json_decode($adata->attribute_value, true);
+                          $atr_count = count(json_decode($adata->attribute_value, true));
+                        @endphp
+                        <div class="single-atr">
+                            <div class="icheck-primary d-inline">
+                                <input class="variation_type" type="checkbox" id="checkboxPrimary_{{ $aid }}" atr_id="{{ $aid }}" atr_count="{{ $atr_count }}">
+                                <label for="checkboxPrimary_{{ $aid }}"><span class="main_label">{{ $adata->attribute_name }}</span></label>
+                              </div>
+                            @foreach($atr_value as $key => $adata)
+                              <div class="icheck-primary d-inline variation_values_{{ $aid }}">
+                                <input type="checkbox" id="checkboxPrimary_{{ $aid }}_{{ $key }}">
+                                <label for="checkboxPrimary_{{ $aid }}_{{ $key }}"><span>{{ $adata }}</span></label>
+                              </div>
+                            @endforeach
+                        </div>
+                      @endforeach
+                  </div>
+
                 </div>
               <!-- /.card -->
               </div>
@@ -211,10 +236,31 @@
       $('body').on('switchChange.bootstrapSwitch','.inventory_on_off',function () {
          if($(this).is(':checked')){
             //console.log('on');
+            $('.atr-wrapper').delay(200).fadeIn();
           } else {
             //console.log('off');
+            $('.atr-wrapper').delay(200).fadeOut();
           }
       });
+
+      $('.variation_type').click(function(){
+        if($(this).is(':checked')){
+           var atr_id = $(this).attr('atr_id');
+           var atr_count = $(this).attr('atr_count');
+
+           for (var i = 0; i < atr_count; i++) {
+              $('#checkboxPrimary_'+atr_id+'_'+i).prop('checked', true);
+           }
+
+        } else {
+           var atr_id = $(this).attr('atr_id');
+           var atr_count = $(this).attr('atr_count');
+           for (var i = 0; i < atr_count; i++) {
+              $('#checkboxPrimary_'+atr_id+'_'+i).prop('checked', false);
+           }
+        }
+       
+      })
 
     });
   </script>

@@ -25,7 +25,9 @@ class ProductController extends Controller
     {
         $common_model = new Common();      
         $all_categories = $common_model->allCategories();
-        return view('admin.products.create', compact('all_categories'));
+        $all_attributes = $common_model->allAttributes();
+        //dd($all_attributes);
+        return view('admin.products.create', compact('all_categories', 'all_attributes'));
     }
 
     /**
