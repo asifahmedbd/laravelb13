@@ -3,8 +3,9 @@
 @section('content')
 <!-- summernote -->
 <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
-  <!-- iCheck for checkboxes and radio inputs -->
+<!-- iCheck for checkboxes and radio inputs -->
 <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -131,6 +132,76 @@
                   </div>
                 </div>
                 <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="modelName">Model/Code</label>
+                        <input type="text" class="form-control" id="modelName" placeholder="Enter product model" name="model_name">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                       <div class="form-group">
+                        <label for="productSKU">SKU</label>
+                        <input type="text" class="form-control" id="productSKU" placeholder="Enter product SKU" name="product_sku">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="text" class="form-control" id="quantity" placeholder="Enter stock quantity" name="product_quantity">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label>Unit</label>
+                        <select class="form-control">
+                          <option value="">Select Unit</option>
+                          <option value="gm">gm</option>
+                          <option value="kg">kg</option>
+                          <option value="pcs">pcs</option>
+                          <option value="ml">ml</option>
+                          <option value="ltr">ltr</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="productPrice">Price</label>
+                        <input type="number" class="form-control" id="productPrice" placeholder="Enter price" name="product_sell_price">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="offerPrice">Discount/Offer Price</label>
+                        <input type="number" class="form-control" id="offerPrice" placeholder="Enter discount" name="product_offer_price">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label>Percent or Fixed</label>
+                        <select class="form-control">
+                          <option value="">Discount Type</option>
+                          <option value="1">Percent %</option>
+                          <option value="2">Fixed</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                      <label>Discount Date Range:</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="far fa-calendar-alt"></i>
+                          </span>
+                        </div>
+                        <input type="text" class="form-control float-right" id="reservation" name="datefilter">
+                      </div>
+                    </div>
+                    </div>
+                  </div>
                 </div>
               <!-- /.card -->
               </div>
@@ -160,13 +231,13 @@
                         @endphp
                         <div class="single-atr">
                             <div class="icheck-primary d-inline">
-                                <input class="variation_type" type="checkbox" id="checkboxPrimary_{{ $aid }}" atr_id="{{ $aid }}" atr_count="{{ $atr_count }}">
+                                <input class="variation_type" type="checkbox" id="checkboxPrimary_{{ $aid }}" atr_id="{{ $aid }}" atr_count="{{ $atr_count }}" atr_name="{{ $adata->attribute_name }}">
                                 <label for="checkboxPrimary_{{ $aid }}"><span class="main_label">{{ $adata->attribute_name }}</span></label>
                               </div>
-                            @foreach($atr_value as $key => $adata)
+                            @foreach($atr_value as $key => $atrdata)
                               <div class="icheck-primary d-inline variation_values_{{ $aid }}">
-                                <input type="checkbox" id="checkboxPrimary_{{ $aid }}_{{ $key }}">
-                                <label for="checkboxPrimary_{{ $aid }}_{{ $key }}"><span>{{ $adata }}</span></label>
+                                <input class="attribute_data" type="checkbox" id="checkboxPrimary_{{ $aid }}_{{ $key }}" atr_data="{{ $atrdata }}" parent_atr_title="{{ $adata->attribute_name }}">
+                                <label for="checkboxPrimary_{{ $aid }}_{{ $key }}"><span>{{ $atrdata }}</span></label>
                               </div>
                             @endforeach
                         </div>
@@ -191,6 +262,18 @@
                   </div>
                 </div>
                 <div class="card-body">
+                  <div class="form-group">
+                    <label for="exampleInputFile">Product Gallery Images</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" id="exampleInputFile"  class="custom-file-input"  name="product_images" multiple="multiple">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                      <div class="input-group-append">
+                        <span class="input-group-text">Upload</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               <!-- /.card -->
               </div>
@@ -209,6 +292,21 @@
                   </div>
                 </div>
                 <div class="card-body">
+                  <div class="form-group">
+                    <label class="col-form-label" for="inputWarning"><i class="far fa-bell"></i> Product Collection</label>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-group clearfix">
+                      <div class="icheck-primary d-inline">
+                        <input type="checkbox" id="checkboxPrimary1">
+                        <label for="checkboxPrimary1">Featured Product</label>
+                      </div>
+                      <div class="icheck-primary d-inline">
+                        <input type="checkbox" id="checkboxPrimary1">
+                        <label for="checkboxPrimary1">Top Selling Product</label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               <!-- /.card -->
               </div>
@@ -223,11 +321,32 @@
   <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
   <!-- Bootstrap Switch -->
   <script src="{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+  <!-- date-range-picker -->
+  <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+  <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
   <script type="text/javascript">
 
     $(document).ready(function(){
       // Summernote
       $('#summernote').summernote();
+      //Date range picker
+      $('input[name="datefilter"]').daterangepicker({
+          autoUpdateInput: false,
+          locale: {
+              cancelLabel: 'Clear'
+          }
+      });
+
+      $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+          $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+      });
+
+      $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+          $(this).val('');
+      });
+
+
+
       $('.alert-danger').delay(3000).fadeOut('slow');
       $("input[data-bootstrap-switch]").each(function(){
         $(this).bootstrapSwitch('state', $(this).prop('checked'));
@@ -243,10 +362,12 @@
           }
       });
 
+       var main_attributes = {};
       $('.variation_type').click(function(){
         if($(this).is(':checked')){
            var atr_id = $(this).attr('atr_id');
            var atr_count = $(this).attr('atr_count');
+           var atr_name = $(this).attr('atr_name');
 
            for (var i = 0; i < atr_count; i++) {
               $('#checkboxPrimary_'+atr_id+'_'+i).prop('checked', true);
@@ -259,8 +380,25 @@
               $('#checkboxPrimary_'+atr_id+'_'+i).prop('checked', false);
            }
         }
-       
-      })
+      });
+
+      $('.attribute_data').click(function(){
+         
+          if($(this).is(':checked')){
+            var parent_atr_title = $(this).attr('parent_atr_title').toLowerCase();
+            var variation_title = $(this).attr('atr_data');
+            
+            if(!main_attributes[parent_atr_title]){
+              main_attributes[parent_atr_title] = [];
+              var combinations = [];
+              main_attributes[parent_atr_title].push(variation_title);
+              
+            } else {
+              main_attributes[parent_atr_title].push(variation_title);
+              
+            }
+          }
+      });
 
     });
   </script>
