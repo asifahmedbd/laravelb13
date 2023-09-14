@@ -399,8 +399,10 @@
               
             } else {
               main_attributes[parent_atr_title].push(variation_title);
-              
             }
+            console.log(main_attributes);
+          } else {
+            
           }
       });
 
