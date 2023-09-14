@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('product_inventory', function (Blueprint $table) {
-            $table->id();
+            $table->increments('product_stock_id');
+            $table->integer('product_id');
+            $table->integer('stock_amount');
+            $table->dateTime('modified_at');
             $table->timestamps();
         });
     }

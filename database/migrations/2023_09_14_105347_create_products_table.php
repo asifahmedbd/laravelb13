@@ -19,11 +19,13 @@ return new class extends Migration
             $table->text('long_description')->nullable();
             $table->string('product_model')->nullable();
             $table->string('product_sku');
-            $table->string('product_price');
+            $table->double('product_price', 8, 2);
             $table->integer('product_unit')->nullable();
             $table->tinyInteger('is_featured')->nullable();
             $table->tinyInteger('top_selling')->nullable();
             $table->tinyInteger('is_refundable')->nullable();
+            $table->tinyInteger('active_status')->default('1');
+            $table->integer('created_by');
             $table->timestamps();
         });
     }

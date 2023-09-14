@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attributes', function (Blueprint $table) {
-            $table->increments('attribute_row_id');
-            $table->string('attribute_name');
-            $table->text('attribute_value');
-            $table->integer('created_by');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('attributes')){
+            Schema::create('attributes', function (Blueprint $table) {
+                $table->increments('attribute_row_id');
+                $table->string('attribute_name');
+                $table->text('attribute_value');
+                $table->integer('created_by');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
