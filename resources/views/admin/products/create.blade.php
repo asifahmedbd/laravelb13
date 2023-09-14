@@ -302,8 +302,12 @@
                         <label for="checkboxPrimary1">Featured Product</label>
                       </div>
                       <div class="icheck-primary d-inline">
-                        <input type="checkbox" id="checkboxPrimary1">
-                        <label for="checkboxPrimary1">Top Selling Product</label>
+                        <input type="checkbox" id="checkboxPrimary2">
+                        <label for="checkboxPrimary2">Top Selling Product</label>
+                      </div>
+                      <div class="icheck-primary d-inline">
+                        <input type="checkbox" id="checkboxPrimary3">
+                        <label for="checkboxPrimary3">Is Refundable</label>
                       </div>
                     </div>
                   </div>
