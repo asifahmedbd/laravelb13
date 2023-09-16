@@ -72,6 +72,7 @@
 		                        <td align="left">{{ $row->product_price }}</td>
 		                        <td align="left">{{ $row->product_inventory->stock_amount }}</td>
 		                        <td>
+		                        	<button class="btn btn-sm btn-info mb-2">View</button>
 		                          <button onclick="window.location='{{ url('/')}}/admin/products/{{$pid}}/edit'" class="btn btn-sm btn-warning mb-2">Edit</button>
 		                          <form id="deleteCategory_{{$pid}}" action="{{ url('/')}}/admin/products/{{$pid}}" style="display: inline;" method="POST">
 		                          	{{ method_field('DELETE') }}
@@ -102,7 +103,7 @@
         <h4 class="modal-title">Delete Products</h4>
       </div>
       <div class="modal-body">
-        <p>Do you really want to delete <b class="catname"></b> category?</p>
+        <p>Do you really want to delete <b class="catname"></b> Products?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>

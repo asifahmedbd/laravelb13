@@ -100,10 +100,9 @@ class ProductController extends Controller
                         $galleryimg[]      = $gfilename;
                         $gdata->move(public_path('uploads/products/').$pid.'/gallery_images/',$gfilename);
                     }
-                    $product_image->gallery_images   = json_encode($galleryimg);
+                    $product_image->gallery_images = json_encode($galleryimg);
                 }
                 $product_image->save();
-
             }
 
             //upload product attributes
