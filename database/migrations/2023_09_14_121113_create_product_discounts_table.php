@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('product_discounts', function (Blueprint $table) {
             $table->increments('discount_id');
             $table->integer('product_id');
-            $table->double('discount_rate', 8, 2);
+            $table->double('discount_price', 8, 2);
             $table->tinyInteger('discount_type');
             $table->dateTime('started_at');
             $table->dateTime('ends_at');

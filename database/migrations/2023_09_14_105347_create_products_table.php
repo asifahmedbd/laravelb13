@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('short_description')->nullable();
             $table->text('long_description')->nullable();
             $table->string('product_model')->nullable();
+            $table->integer('brand_id')->nullable();
+            $table->text('product_tags')->nullable();
             $table->string('product_sku');
             $table->double('product_price', 8, 2);
             $table->integer('product_unit')->nullable();
