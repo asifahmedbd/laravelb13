@@ -70,7 +70,7 @@
 		                        <td align="left">{{ $row->getCategory->category_name }}</td>
 		                        <td align="left"></td>
 		                        <td align="left">{{ $row->product_price }}</td>
-		                        <td align="left">{{ $row->product_inventory->stock_amount }}</td>
+		                        <td align="left">@if(isset($row->product_inventory->stock_amount)){{ $row->product_inventory->stock_amount }}@endif</td>
 		                        <td>
 		                        	<button class="btn btn-sm btn-info mb-2 product_details" data-toggle="modal" data-target="#modal-xl" product_id="{{ $pid }}">View</button>
 		                          <button onclick="window.location='{{ url('/')}}/admin/products/{{$pid}}/edit'" class="btn btn-sm btn-warning mb-2">Edit</button>
@@ -104,7 +104,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>One fine body&hellip;</p>
+        
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -164,12 +164,39 @@
       });
 
       $('.submitDeleteModal').click(function(){
-      	var attribute_row_id  = $(this).attr('attribute_row_id ');
+      	var attribute_row_id  = $(this).attr('attribute_row_id');
       	$('#deleteCategory_'+attribute_row_id ).submit();
       });
 
+      $(document).on('click','.product-image-thumb',function(){
+        var $image_element = $(this).find('img')
+        $('.product-image').prop('src', $image_element.attr('src'))
+        $('.product-image-thumb.active').removeClass('active')
+        $(this).addClass('active')
+      })
+
       $('.product_details').click(function(){
-      	
+      	var pid = $(this).attr('product_id');
+        var _token = $('meta[name="csrf-token"]').attr('content');
+        //console.log(token);
+
+        $.ajax({
+            url: "{{ route('get-product-details') }}",
+            method: 'POST',
+            data: {
+              pid: pid,
+              _token: _token
+            },
+            success: function(data) {
+               //console.log(data);
+               $('#modal-xl .modal-body').empty();
+               $('#modal-xl .modal-body').append(data);
+            },
+            error: function(data) {
+                // If you got an error code.
+            }
+        }); 
+
       });
   });
 </script>

@@ -37,6 +37,7 @@ Route::middleware(['auth', 'checkrole:admin'])->group(function () {
     Route::resource('/admin/category', 'CategoryController');
     Route::resource('/admin/attributes', 'AttributesController');
     Route::resource('/admin/products', 'ProductController');
+    Route::post('/get-product-details', 'ProductController@getProductDetails')->name('get-product-details');
 });
 
 
