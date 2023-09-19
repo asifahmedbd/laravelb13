@@ -72,7 +72,7 @@
 		                        <td align="left">{{ $row->product_price }}</td>
 		                        <td align="left">{{ $row->product_inventory->stock_amount }}</td>
 		                        <td>
-		                        	<button class="btn btn-sm btn-info mb-2">View</button>
+		                        	<button class="btn btn-sm btn-info mb-2 product_details" data-toggle="modal" data-target="#modal-xl" product_id="{{ $pid }}">View</button>
 		                          <button onclick="window.location='{{ url('/')}}/admin/products/{{$pid}}/edit'" class="btn btn-sm btn-warning mb-2">Edit</button>
 		                          <form id="deleteCategory_{{$pid}}" action="{{ url('/')}}/admin/products/{{$pid}}" style="display: inline;" method="POST">
 		                          	{{ method_field('DELETE') }}
@@ -94,6 +94,27 @@
     </section>
     <!-- /.content -->
 </div>
+<div class="modal fade" id="modal-xl">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Product Details</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <div class="modal modal-danger fade" id="category-delete-modal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -145,6 +166,10 @@
       $('.submitDeleteModal').click(function(){
       	var attribute_row_id  = $(this).attr('attribute_row_id ');
       	$('#deleteCategory_'+attribute_row_id ).submit();
+      });
+
+      $('.product_details').click(function(){
+      	
       });
   });
 </script>
