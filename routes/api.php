@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/getCategories', 'ApiController@getCategories')->name('get-categories');
+Route::get('/getProductsById/{pid}', 'ApiController@getProductsById')->name('get-products-by-id');
