@@ -170,6 +170,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -187,6 +189,8 @@ return [
         // 'Example' => App\Facades\Example::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ])->toArray(),
 
 ];

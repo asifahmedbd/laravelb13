@@ -190,7 +190,7 @@ class ProductController extends Controller
           }
         }
 
-        //dd($main_array['size']);
+        //dd($product_attributes);
 
         foreach ($product_attributes as $pakey => $pavalue) {
             $parray = explode("+", $pavalue['attribute_title']);

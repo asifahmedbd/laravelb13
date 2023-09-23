@@ -34,7 +34,7 @@ class ApiController extends Controller
     		}
     		
     	} else {
-    		return response()->json(['error' => 'Product ID is not valid'], 500);
+    		return response()->json(['error' => 'Product ID is not valid, ID should be numeric'], 500);
     	}
 
     }
