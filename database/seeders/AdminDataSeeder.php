@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use DB;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class AdminDataSeeder extends Seeder
 {
@@ -13,16 +15,22 @@ class AdminDataSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert(array(
-            array(
-             'name' => "Asif Ahmed",
-             'username' => "romeoasif",
-             'email' => 'asifahmed.mist@gmail.com',
-             'password' => bcrypt('superadmin123'),
-             'phone' => '01676293452',
-             'role' => 'admin',
-             'status' => 'active'
-            )
-        ));
+
+        $user = User::create([
+            'name' => "Asif BJIT",
+            'username' => "asifahmedbd",
+            'email' => 'asifahmed.mist@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('superadmin123'),
+            'role' => 'admin'
+        ]);
+        
+        $role = Role::create(['name' => 'admin']);
+         
+        $permissions = Permission::pluck('id','id')->all();
+       
+        $role->syncPermissions($permissions);
+         
+        $user->assignRole([$role->id]);
     }
 }

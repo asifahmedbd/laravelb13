@@ -67,12 +67,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              @can('product-create')
               <li class="nav-item">
                 <a href="{{ route('products.create') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add New Product</p>
                 </a>
               </li>
+              @endcan
               <li class="nav-item">
                 <a href="{{ route('products.index') }}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
@@ -98,6 +100,24 @@
                 </a>
               </li>
             </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ route('users.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Manage Users
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ route('roles.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Manage Roles
+              </p>
+            </a>
           </li>
 
         </ul>
