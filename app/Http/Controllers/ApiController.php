@@ -16,8 +16,24 @@ class ApiController extends Controller
 
     	$common_model = new Common();      
         $all_categories = $common_model->allCategories();
-        if(isset($all_categories)){
-			return response()->json($all_categories);	
+
+        //sort sub-category wise data
+        $category_array = array();
+        foreach ($all_categories as $category_data) {
+            $cid = $category_data->category_row_id;
+            if($category_data->parent_id == 0){
+                $category_array[$cid]['category_name'] = $category_data->category_name;
+                $category_array[$cid]['category_image'] = $category_data->category_image;
+            } else {
+                $category_array[$category_data->parent_id]['subcategory'][$cid]['category_name'] = $category_data->category_name;
+                $category_array[$category_data->parent_id]['subcategory'][$cid]['category_image'] = $category_data->category_image;
+            }
+        }
+
+        //dd($category_array);
+
+        if(isset($category_array)){
+			return response()->json($category_array);	
 		} else {
 			return response()->json(['error' => 'No Categories Found'], 500);
 		}
