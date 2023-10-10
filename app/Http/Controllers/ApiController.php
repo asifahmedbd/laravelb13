@@ -54,4 +54,14 @@ class ApiController extends Controller
     	}
 
     }
+
+    public function getAllFeaturedCategory(){
+
+        $featured_category = Category::where('is_featured', 1)->get();
+        if(isset($featured_category)){
+            return response()->json($featured_category);  
+        } else {
+            return response()->json(['error' => 'No featured category found'], 500);
+        }
+    }
 }
