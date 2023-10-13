@@ -19,4 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/getCategories', 'ApiController@getCategories')->name('get-categories');
+Route::get('/getAllFeaturedCategory', 'ApiController@getAllFeaturedCategory')->name('get-featured-categories');
 Route::get('/getProductsById/{pid}', 'ApiController@getProductsById')->name('get-products-by-id');
+
