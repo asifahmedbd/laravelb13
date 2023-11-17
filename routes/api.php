@@ -23,3 +23,6 @@ Route::get('/getAllFeaturedCategory', 'ApiController@getAllFeaturedCategory')->n
 Route::get('/getProductsById/{pid}', 'ApiController@getProductsById')->name('get-products-by-id');
 Route::get('/getProductsByCategoryId/{cid}', 'ApiController@getProductsByCategoryId');
 
+Route::post('/submitOrderDetails', 'ApiController@submitOrderDetails');
+
+

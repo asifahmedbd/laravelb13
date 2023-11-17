@@ -83,4 +83,13 @@ class ApiController extends Controller
             return response()->json(['error' => 'Category ID is not valid, ID should be numeric'], 500);
         }
     }
+
+    public function submitOrderDetails(Request $request){
+
+        // create new user using order information
+        $username = $request->firstname.' '.$request->lastname;
+        return response()->json($username);
+        //return response()->json([$request->all()]);
+
+    }
 }
